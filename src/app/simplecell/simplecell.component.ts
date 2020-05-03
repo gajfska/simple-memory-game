@@ -87,8 +87,9 @@ export class SimplecellComponent implements OnInit {
   }
 
 
-  gemerateGameBoard() {
-
+  generateGameBoard() {
+    this.chooseRandomColorCells();
+    this.coverColorCells();
   }
 
   chooseRandomColorCells() {
