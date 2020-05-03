@@ -34,7 +34,7 @@ export class SimplecellComponent implements OnInit {
   memoryCount = 3; //ile kwadratów do zgadnięcia
   basicArray: Item[][] = [];
   countGoodPoints = 0;
-  countBadPoints = 0;
+  warningMessage = 'Przegrałeś :( naciśnij START i zagraj jeszcze raz';
 
   constructor() {
   }
@@ -51,15 +51,15 @@ export class SimplecellComponent implements OnInit {
     console.log(this.basicArray);
   }
 
-  createGameBoard() {
-    for (let i = 0; i < this.cellCount; i++) {
-      for (let j = 0; j < this.cellCount; j++) {
-        if (this.basicArray[i][j].isVisible === false && this.basicArray[i][j].isWanted === false) {
-          this.statusChange = ItemState.normal;
-        }
-      }
-    }
-  }
+  // createGameBoard() {
+  //   for (let i = 0; i < this.cellCount; i++) {
+  //     for (let j = 0; j < this.cellCount; j++) {
+  //       if (this.basicArray[i][j].isVisible === false && this.basicArray[i][j].isWanted === false) {
+  //         this.statusChange = ItemState.normal;
+  //       }
+  //     }
+  //   }
+  // }
 
   onAnimate() {
   //   for (let i = 0; i < this.cellCount; i++) {
@@ -72,24 +72,34 @@ export class SimplecellComponent implements OnInit {
   //   console.log(this.basicArray);
   }
 
-  onZgaduj(i: number, j: number) {
+  chooseSpecificCell(i: number, j: number) {
     if (this.basicArray[i][j].isWanted === true) {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints++;
     }
     else {
       this.basicArray[i][j].setCellVisible(true);
-      // this.countBadPoints++;
       this.countGoodPoints = 0;
       console.log('you lose');
-      alert('You los');
     }
   }
 
 
   generateGameBoard() {
-    this.chooseRandomColorCells();
-    this.coverColorCells();
+    for (let i = 0; i < this.cellCount; i++) {
+        for (let j = 0; j < this.cellCount; j++) {
+            if (this.basicArray[i][j].isVisible === true) {
+                this.basicArray[i][j].setCellVisible(false);
+            }
+            if (this.basicArray[i][j].isWanted === true) {
+                this.basicArray[i][j].setCellWanted(false);
+            }
+        }
+    }
+    setTimeout(() => {
+        this.chooseRandomColorCells();
+        this.coverColorCells();
+    }, 1000);
   }
 
   chooseRandomColorCells() {
