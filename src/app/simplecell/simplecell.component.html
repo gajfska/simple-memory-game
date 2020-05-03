@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <button class="btn btn-danger" (click)="gemerateGameBoard()"> START </button>
+      <hr>
+      <button class="btn btn-success" (click)="onAnimate()">UKRYJ</button>
+      <br><br>
+      <p>Found cell: {{countGoodPoints}}</p>
+      <p>Bad cell: {{countBadPoints}}</p>
+    </div>
+    <div class="col-lg-4">
+      <div class="grid-container">
+
+        <div *ngFor="let row of basicArray; index as i;">
+          <div *ngFor="let column of row; index as j;">
+            <div class="grid-item"
+                 (click)="onZgaduj(i, j)"
+                 [@divState]="statusColor(i, j)">
+            </div>
+          </div>
+          <br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
