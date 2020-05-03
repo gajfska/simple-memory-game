@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Item, ItemState} from './item';
+import {error} from 'selenium-webdriver';
 
 @Component({
   selector: 'app-simplecell',
@@ -35,6 +36,7 @@ export class SimplecellComponent implements OnInit {
   basicArray: Item[][] = [];
   countGoodPoints = 0;
   warningMessage = 'Przegrałeś :( naciśnij START i zagraj jeszcze raz';
+  errorMessage = false;
 
   constructor() {
   }
@@ -80,12 +82,14 @@ export class SimplecellComponent implements OnInit {
     else {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints = 0;
+      this.errorMessage = true;
       console.log('you lose');
     }
   }
 
 
   generateGameBoard() {
+    this.errorMessage = false;
     for (let i = 0; i < this.cellCount; i++) {
         for (let j = 0; j < this.cellCount; j++) {
             if (this.basicArray[i][j].isVisible === true) {
@@ -130,4 +134,8 @@ export class SimplecellComponent implements OnInit {
   statusColor(i: number, j: number): ItemState {
     return this.basicArray[i][j].statusColorItem();
   }
+
+  winnerFunction() {
+  }
+
 }

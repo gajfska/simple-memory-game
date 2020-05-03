@@ -3,9 +3,15 @@
     <div class="col-lg-4">
       <button class="btn btn-danger" (click)="generateGameBoard()"> START </button>
       <hr>
-      <button class="btn btn-success" (click)="onAnimate()">UKRYJ</button>
       <br><br>
       <p>Found cell: {{countGoodPoints}}</p>
+
+      <div class="alert alert-danger" *ngIf="errorMessage === true">
+        <h2>Przegrałeś!</h2>
+        <p>Naciśnij START i zagraj jeszcze raz!</p>
+      </div>
+
+
     </div>
     <div class="col-lg-4">
       <div class="grid-container">
