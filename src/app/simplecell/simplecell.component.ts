@@ -35,8 +35,8 @@ export class SimplecellComponent implements OnInit {
   memoryCount = 3; //ile kwadratów do zgadnięcia
   basicArray: Item[][] = [];
   countGoodPoints = 0;
-  warningMessage = 'Przegrałeś :( naciśnij START i zagraj jeszcze raz';
-  errorMessage = false;
+  looserMessage = false;
+  winnerMessage = false;
 
   constructor() {
   }
@@ -78,18 +78,22 @@ export class SimplecellComponent implements OnInit {
     if (this.basicArray[i][j].isWanted === true) {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints++;
+      if (this.countGoodPoints === this.memoryCount) {
+        this.winnerMessage = true;
+      }
     }
     else {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints = 0;
-      this.errorMessage = true;
+      this.looserMessage = true;
       console.log('you lose');
     }
   }
 
 
   generateGameBoard() {
-    this.errorMessage = false;
+    this.looserMessage = false;
+    this.winnerMessage = false;
     for (let i = 0; i < this.cellCount; i++) {
         for (let j = 0; j < this.cellCount; j++) {
             if (this.basicArray[i][j].isVisible === true) {
@@ -135,7 +139,5 @@ export class SimplecellComponent implements OnInit {
     return this.basicArray[i][j].statusColorItem();
   }
 
-  winnerFunction() {
-  }
 
 }

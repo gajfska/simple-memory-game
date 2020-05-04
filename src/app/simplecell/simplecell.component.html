@@ -6,11 +6,15 @@
       <br><br>
       <p>Found cell: {{countGoodPoints}}</p>
 
-      <div class="alert alert-danger" *ngIf="errorMessage === true">
+      <div class="alert alert-danger" *ngIf="looserMessage === true">
         <h2>Przegrałeś!</h2>
         <p>Naciśnij START i zagraj jeszcze raz!</p>
       </div>
 
+      <div class="alert alert-info" *ngIf="winnerMessage === true">
+        <h2>Wygrałeś!</h2>
+        <p>Naciśnij START i zagraj jeszcze raz!</p>
+      </div>
 
     </div>
     <div class="col-lg-4">
