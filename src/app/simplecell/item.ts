@@ -18,36 +18,34 @@ export class Item {
     if (!this.isVisible) {
       return ItemState.normal;
     }
-
     if (this.isWanted) {
       return ItemState.win;
     }
     else {
       return ItemState.wrong;
     }
-
-
-    // if (this.isVisible === true && this.isWanted === true) {
-    //   return ItemState.win;
-    // }
-    // if (this.isVisible === false && this.isWanted === true) {
-    //   return ItemState.normal;
-    // }
-    // if (this.isVisible === true && this.isWanted === false) {
-    //   return ItemState.wrong;
-    // }
-    // else {
-    //   return ItemState.normal;
-    // }
   }
 
-  setCellVisible(isVisible: boolean) {
-    this.isVisible = isVisible;
+  setCellVisible(isVisible: boolean, delay: number = 0) {
+    // this.isVisible = isVisible;
+      setTimeout(() => {
+        this.isVisible = isVisible;
+      }, delay);
   }
 
   setCellWanted(isWanted: boolean) {
     this.isWanted = isWanted;
   }
+
+  // coverSpeciaCells() {
+  //   setTimeout(() => {
+  //       for (const value of this.isVisible) {
+  //           if (this.isVisible === true) {
+  //               this.isVisible = false;
+  //           }
+  //       }
+  //   }, 3000);
+  // }
 
   // isWanted(): boolean {
   //   return this.isWanted;

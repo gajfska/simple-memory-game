@@ -33,54 +33,82 @@ export class SimplecellComponent implements OnInit {
 
   cellCount = 3; //rozmiar planszy 4x4
   memoryCount = 3; //ile kwadratów do zgadnięcia
-  basicArray: Item[][] = [];
+  basicArray: Item[][];
   countGoodPoints = 0;
+  sumMemoryCount = 3;
   looserMessage = false;
   winnerMessage = false;
+  numberOfLevel = 1;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < this.cellCount; i++) {
-      const rowArray: Item[] = [];
-      for (let j = 0; j < this.cellCount; j++) {
-        const item = new Item(false, false);
-        rowArray.push(item);
+    this.generateCells();
+  }
+
+  generateCells() {
+      this.basicArray = [];
+
+      for (let i = 0; i < this.cellCount; i++) {
+          const rowArray: Item[] = [];
+          for (let j = 0; j < this.cellCount; j++) {
+              const item = new Item(false, false);
+              rowArray.push(item);
+          }
+          this.basicArray.push(rowArray.slice(0));
       }
-      this.basicArray.push(rowArray.slice(0));
+      console.log(this.basicArray);
+  }
+
+    chooseRandomColorCells() {
+        let i = 0;
+        while (  i < this.memoryCount) {
+            const rowNum = Math.floor(Math.random() * this.basicArray.length);
+            console.log(rowNum);
+            const colNum = Math.floor(Math.random() * this.basicArray.length);
+            console.log(colNum);
+
+            if (this.basicArray[rowNum][colNum].isWanted === true ) {
+                continue;
+            }
+            this.basicArray[rowNum][colNum].setCellWanted(true);
+            this.basicArray[rowNum][colNum].setCellVisible(true);
+            i++;
+        }
+        console.log(this.basicArray);
     }
-    console.log(this.basicArray);
-  }
 
-  // createGameBoard() {
-  //   for (let i = 0; i < this.cellCount; i++) {
-  //     for (let j = 0; j < this.cellCount; j++) {
-  //       if (this.basicArray[i][j].isVisible === false && this.basicArray[i][j].isWanted === false) {
-  //         this.statusChange = ItemState.normal;
-  //       }
-  //     }
-  //   }
-  // }
+    coverColorCells() {
+        for (const row of this.basicArray) {
+            for (const item of row) {
+                item.setCellVisible(false, 3000);
+            }
+        }
+    }
 
-  onAnimate() {
-  //   for (let i = 0; i < this.cellCount; i++) {
-  //     for (let j = 0; j < this.cellCount; j++) {
-  //       if (this.basicArray[i][j].isVisible === true && this.basicArray[i][j].isWanted === true) {
-  //         this.basicArray[i][j].setCellVisible(false);
-  //       }
-  //     }
-  //   }
-  //   console.log(this.basicArray);
-  }
+    statusColor(i: number, j: number): ItemState {
+        return this.basicArray[i][j].statusColorItem();
+    }
+
+    generateGameBoard() {
+        this.looserMessage = false;
+        this.winnerMessage = false;
+        this.generateCells();
+
+        setTimeout(() => {
+            this.chooseRandomColorCells();
+            this.coverColorCells();
+        }, 1000);
+    }
 
   chooseSpecificCell(i: number, j: number) {
     if (this.basicArray[i][j].isWanted === true) {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints++;
       if (this.countGoodPoints === this.memoryCount) {
-        this.winnerMessage = true;
-      }
+          this.nextLevel();
+        }
     }
     else {
       this.basicArray[i][j].setCellVisible(true);
@@ -90,54 +118,31 @@ export class SimplecellComponent implements OnInit {
     }
   }
 
-
-  generateGameBoard() {
-    this.looserMessage = false;
-    this.winnerMessage = false;
-    for (let i = 0; i < this.cellCount; i++) {
-        for (let j = 0; j < this.cellCount; j++) {
-            if (this.basicArray[i][j].isVisible === true) {
-                this.basicArray[i][j].setCellVisible(false);
-            }
-            if (this.basicArray[i][j].isWanted === true) {
-                this.basicArray[i][j].setCellWanted(false);
-            }
-        }
-    }
-    setTimeout(() => {
-        this.chooseRandomColorCells();
-        this.coverColorCells();
-    }, 1000);
-  }
-
-  chooseRandomColorCells() {
-    for (let i = 0; i < this.memoryCount; i++) {
-      const rowNum = Math.floor(Math.random() * this.basicArray.length);
-      console.log(rowNum);
-      const colNum = Math.floor(Math.random() * this.basicArray.length);
-      console.log(colNum);
-      this.basicArray[rowNum][colNum].setCellWanted(true);
-      this.basicArray[rowNum][colNum].setCellVisible(true);
-
-    }
-    console.log(this.basicArray);
-  }
-
-  coverColorCells() {
-    setTimeout(() => {
-      for (let i = 0; i < this.cellCount; i++) {
-        for (let j = 0; j < this.cellCount; j++) {
-          if (this.basicArray[i][j].isVisible === true) {
-            this.basicArray[i][j].setCellVisible(false);
+  nextLevel() {
+    this.numberOfLevel++;
+    switch (this.numberOfLevel) {
+        case 2:
+          this.memoryCount++;
+          this.generateGameBoard();
+          console.log(this.sumMemoryCount + this.memoryCount)
+          if (this.countGoodPoints === (this.sumMemoryCount + this.memoryCount)) {
+              this.winnerMessage = true;
           }
-        }
-      }
-    }, 3000);
+          break;
+  //         break;
+  //       case 3:
+  //           this.cellCount++;
+  //           break;
+  //       case 4:
+  //         this.memoryCount++;
+  //         break;
+  //       case 5:
+  //           this.memoryCount++;
+  //           break;
+    }
   }
 
-  statusColor(i: number, j: number): ItemState {
-    return this.basicArray[i][j].statusColorItem();
-  }
+
 
 
 }
