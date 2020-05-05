@@ -111,10 +111,7 @@ export class SimplecellComponent implements OnInit {
         }
     }
     else {
-      this.basicArray[i][j].setCellVisible(true);
-      this.countGoodPoints = 0;
-      this.looserMessage = true;
-      console.log('you lose');
+        this.whenSomebodyLoses(i, j);
     }
   }
 
@@ -124,10 +121,6 @@ export class SimplecellComponent implements OnInit {
         case 2:
           this.memoryCount++;
           this.generateGameBoard();
-          console.log(this.sumMemoryCount + this.memoryCount)
-          if (this.countGoodPoints === (this.sumMemoryCount + this.memoryCount)) {
-              this.winnerMessage = true;
-          }
           break;
   //         break;
   //       case 3:
@@ -140,6 +133,13 @@ export class SimplecellComponent implements OnInit {
   //           this.memoryCount++;
   //           break;
     }
+  }
+
+  whenSomebodyLoses(i: number, j: number){
+      this.basicArray[i][j].setCellVisible(true);
+      this.countGoodPoints = 0;
+      this.looserMessage = true;
+      console.log('you lose');
   }
 
 
