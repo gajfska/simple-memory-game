@@ -35,10 +35,11 @@ export class SimplecellComponent implements OnInit {
   memoryCount = 3; //ile kwadratów do zgadnięcia
   basicArray: Item[][];
   countGoodPoints = 0;
-  sumMemoryCount = 3;
+  sumMemoryCount = 0;
   looserMessage = false;
   winnerMessage = false;
   numberOfLevel = 1;
+  endLevel = 7;
 
   constructor() {
   }
@@ -94,6 +95,7 @@ export class SimplecellComponent implements OnInit {
     generateGameBoard() {
         this.looserMessage = false;
         this.winnerMessage = false;
+        this.sumMemoryCount = this.sumMemoryCount + this.memoryCount;
         this.generateCells();
 
         setTimeout(() => {
@@ -106,9 +108,14 @@ export class SimplecellComponent implements OnInit {
     if (this.basicArray[i][j].isWanted === true) {
       this.basicArray[i][j].setCellVisible(true);
       this.countGoodPoints++;
-      if (this.countGoodPoints === this.memoryCount) {
-          this.nextLevel();
-        }
+      console.log(this.sumMemoryCount);
+      if (this.countGoodPoints === this.sumMemoryCount) {
+            this.nextLevel();
+      }
+      console.log(this.numberOfLevel === this.endLevel);
+      if (this.numberOfLevel === this.endLevel && this.countGoodPoints === this.sumMemoryCount){
+          this.winnerMessage = true;
+      }
     }
     else {
         this.whenSomebodyLoses(i, j);
@@ -119,19 +126,25 @@ export class SimplecellComponent implements OnInit {
     this.numberOfLevel++;
     switch (this.numberOfLevel) {
         case 2:
-          this.memoryCount++;
-          this.generateGameBoard();
-          break;
-  //         break;
-  //       case 3:
-  //           this.cellCount++;
-  //           break;
-  //       case 4:
-  //         this.memoryCount++;
-  //         break;
-  //       case 5:
-  //           this.memoryCount++;
-  //           break;
+            this.memoryCount++;
+            this.generateGameBoard();
+            break;
+        case 3:
+            this.cellCount++;
+            this.generateGameBoard();
+            break;
+        case 4:
+            this.memoryCount++;
+            this.generateGameBoard();
+            break;
+        case 5:
+            this.cellCount++;
+            this.generateGameBoard();
+            break;
+        case 6:
+            this.memoryCount++;
+            this.generateGameBoard();
+            break;
     }
   }
 
