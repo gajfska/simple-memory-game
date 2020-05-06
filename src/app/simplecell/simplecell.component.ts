@@ -92,9 +92,18 @@ export class SimplecellComponent implements OnInit {
         return this.basicArray[i][j].statusColorItem();
     }
 
-    generateGameBoard() {
+    startGame() {
         this.looserMessage = false;
         this.winnerMessage = false;
+        this.countGoodPoints = 0;
+        this.numberOfLevel = 1;
+        this.cellCount = 3;
+        this.memoryCount = 3;
+        this.sumMemoryCount = 0;
+        this.generateGameBoard();
+    }
+
+    generateGameBoard() {
         this.sumMemoryCount = this.sumMemoryCount + this.memoryCount;
         this.generateCells();
 
@@ -102,6 +111,8 @@ export class SimplecellComponent implements OnInit {
             this.chooseRandomColorCells();
             this.coverColorCells();
         }, 1000);
+
+
     }
 
   chooseSpecificCell(i: number, j: number) {
@@ -153,7 +164,6 @@ export class SimplecellComponent implements OnInit {
 
   whenSomebodyLoses(i: number, j: number){
       this.basicArray[i][j].setCellVisible(true);
-      this.countGoodPoints = 0;
       this.looserMessage = true;
       console.log('you lose');
   }
