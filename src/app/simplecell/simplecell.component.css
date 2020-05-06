@@ -1,6 +1,10 @@
+.btn-blue {
+  
+}
+
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: 100px 100px 100px 100px 100px;
   padding: 10px;
   grid-column-gap: 10px;
 }

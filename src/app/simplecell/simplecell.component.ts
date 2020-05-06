@@ -10,13 +10,13 @@ import {error} from 'selenium-webdriver';
   animations: [
     trigger('divState', [
       state(ItemState.wrong, style({
-        'background-color': 'red'
+        'background-color': '#ff686b'
       })),
       state(ItemState.normal, style({
-        'background-color': 'blue'
+        'background-color': '#a9def9'
       })),
       state(ItemState.win, style({
-        'background-color': 'green'
+        'background-color': '#a7e8bd'
       })),
       transition(`${ItemState.normal} => ${ItemState.wrong}` , [
         animate('0.3s')
@@ -39,7 +39,7 @@ export class SimplecellComponent implements OnInit {
   looserMessage = false;
   winnerMessage = false;
   numberOfLevel = 1;
-  endLevel = 7;
+  endLevel = 6;
 
   constructor() {
   }

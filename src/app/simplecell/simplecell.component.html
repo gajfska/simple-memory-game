@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
-      <br><br>
-      <button class="btn btn-danger" (click)="startGame()"> START </button>
+    <div class="col-lg-6">
+      <button class="btn btn-blue" (click)="startGame()"> START </button>
       <hr>
       <p>Level: {{numberOfLevel}}</p>
       <br><br>
@@ -19,7 +18,7 @@
       </div>
 
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <div class="grid-container">
 
         <div *ngFor="let row of basicArray; index as i;">
