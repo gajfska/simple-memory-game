@@ -19,10 +19,10 @@ import {error} from 'selenium-webdriver';
         'background-color': 'green'
       })),
       transition(`${ItemState.normal} => ${ItemState.wrong}` , [
-        animate('0.5s')
+        animate('0.3s')
       ]),
       transition(`${ItemState.normal} <=> ${ItemState.win}`, [
-        animate('0.5s')
+        animate('0.3s')
       ]),
     ]),
   ]
@@ -83,7 +83,7 @@ export class SimplecellComponent implements OnInit {
     coverColorCells() {
         for (const row of this.basicArray) {
             for (const item of row) {
-                item.setCellVisible(false, 3000);
+                item.setCellVisible(false, 1500);
             }
         }
     }
@@ -110,7 +110,10 @@ export class SimplecellComponent implements OnInit {
       this.countGoodPoints++;
       console.log(this.sumMemoryCount);
       if (this.countGoodPoints === this.sumMemoryCount) {
-            this.nextLevel();
+          this.coverColorCells();
+          setTimeout(() => {
+                this.nextLevel();
+            }, 2000);
       }
       console.log(this.numberOfLevel === this.endLevel);
       if (this.numberOfLevel === this.endLevel && this.countGoodPoints === this.sumMemoryCount){
