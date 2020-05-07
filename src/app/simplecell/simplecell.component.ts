@@ -16,13 +16,13 @@ import {error} from 'selenium-webdriver';
         'background-color': '#a9def9'
       })),
       state(ItemState.win, style({
-        'background-color': '#a7e8bd'
+        'background-color': '#84dcc6'
       })),
       transition(`${ItemState.normal} => ${ItemState.wrong}` , [
-        animate('0.3s')
+        animate('0.2s')
       ]),
       transition(`${ItemState.normal} <=> ${ItemState.win}`, [
-        animate('0.3s')
+        animate('0.2s')
       ]),
     ]),
   ]
@@ -39,7 +39,9 @@ export class SimplecellComponent implements OnInit {
   looserMessage = false;
   winnerMessage = false;
   numberOfLevel = 1;
-  endLevel = 6;
+  endLevel = 7;
+  countTime = 0;
+  myTimer: any;
 
   constructor() {
   }
@@ -83,7 +85,7 @@ export class SimplecellComponent implements OnInit {
     coverColorCells() {
         for (const row of this.basicArray) {
             for (const item of row) {
-                item.setCellVisible(false, 1500);
+                item.setCellVisible(false, 700);
             }
         }
     }
@@ -100,6 +102,8 @@ export class SimplecellComponent implements OnInit {
         this.cellCount = 3;
         this.memoryCount = 3;
         this.sumMemoryCount = 0;
+        this.countTime = 0;
+        this.timer();
         this.generateGameBoard();
     }
 
@@ -124,11 +128,12 @@ export class SimplecellComponent implements OnInit {
           this.coverColorCells();
           setTimeout(() => {
                 this.nextLevel();
-            }, 2000);
+            }, 1000);
       }
       console.log(this.numberOfLevel === this.endLevel);
       if (this.numberOfLevel === this.endLevel && this.countGoodPoints === this.sumMemoryCount){
           this.winnerMessage = true;
+          clearInterval(this.myTimer);
       }
     }
     else {
@@ -159,13 +164,24 @@ export class SimplecellComponent implements OnInit {
             this.memoryCount++;
             this.generateGameBoard();
             break;
+        case 7:
+            this.memoryCount++;
+            this.generateGameBoard();
+            break;
     }
   }
 
   whenSomebodyLoses(i: number, j: number){
       this.basicArray[i][j].setCellVisible(true);
       this.looserMessage = true;
+      clearInterval(this.myTimer);
       console.log('you lose');
+  }
+
+  timer() {
+     this.myTimer = setInterval(() => {
+          this.countTime++;
+      }, 1000);
   }
 
 

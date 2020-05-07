@@ -1,5 +1,50 @@
 .btn-blue {
-  
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #ffffff;
+  padding: 15px 25px;
+  margin: 20px;
+  background-color: #247ba0;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.btn-blue:hover, .btn-blue:focus {
+  background-color: #1d3557;
+  color: #ffffff;
+}
+
+.alert-loser {
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  padding: 15px 25px;
+  background-color: #ff686b;
+}
+
+.alert-winner {
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  padding: 15px 25px;
+  background-color: #a7e8bd;
+}
+
+.alert-loser h2, .alert-winner h2 {
+  margin-top: 0px;
+  color: #ffffff;
+}
+
+.alert-loser p, .alert-winner p {
+  color: #ffffff;
+}
+
+.number-info p {
+  color: #1d3557;
+  font-size: 18px;
+  font-weight: 400;
+  padding-top: 15px;
 }
 
 .grid-container {
@@ -9,7 +54,6 @@
   grid-column-gap: 10px;
 }
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   font-size: 30px;
   text-align: center;

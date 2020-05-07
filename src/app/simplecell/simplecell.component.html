@@ -3,19 +3,25 @@
     <div class="col-lg-6">
       <button class="btn btn-blue" (click)="startGame()"> START </button>
       <hr>
-      <p>Level: {{numberOfLevel}}</p>
-      <br><br>
-      <p>Found cell: {{countGoodPoints}}</p>
 
-      <div class="alert alert-danger" *ngIf="looserMessage === true">
+      <div class="alert-loser" *ngIf="looserMessage === true">
         <h2>Przegrałeś!</h2>
-        <p>Naciśnij START i zagraj jeszcze raz!</p>
+        <p>Naciśnij <strong>START </strong> i zagraj jeszcze raz!</p>
       </div>
 
-      <div class="alert alert-info" *ngIf="winnerMessage === true">
+      <div class="alert-winner" *ngIf="winnerMessage === true">
         <h2>Wygrałeś!</h2>
-        <p>Naciśnij START i zagraj jeszcze raz!</p>
+        <p>Naciśnij <strong>START </strong> i zagraj jeszcze raz!</p>
       </div>
+
+      <div class="number-info">
+        <p>Poziom: {{numberOfLevel}}</p>
+        <p>Znalezione pola: {{countGoodPoints}}</p>
+        <p>Czas: {{countTime}}</p>
+      </div>
+
+
+
 
     </div>
     <div class="col-lg-6">
