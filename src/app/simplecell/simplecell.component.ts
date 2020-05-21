@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Item, ItemState} from './item';
-import {error} from 'selenium-webdriver';
+import {Field, FieldState} from './field';
 
 @Component({
   selector: 'app-simplecell',
@@ -9,19 +8,19 @@ import {error} from 'selenium-webdriver';
   styleUrls: ['./simplecell.component.css'],
   animations: [
     trigger('divState', [
-      state(ItemState.wrong, style({
+      state(FieldState.wrong, style({
         'background-color': '#ff686b'
       })),
-      state(ItemState.normal, style({
+      state(FieldState.normal, style({
         'background-color': '#a9def9'
       })),
-      state(ItemState.win, style({
-        'background-color': '#84dcc6'
+      state(FieldState.win, style({
+        'background-color': '#2a9d8f'
       })),
-      transition(`${ItemState.normal} => ${ItemState.wrong}` , [
+      transition(`${FieldState.normal} => ${FieldState.wrong}` , [
         animate('0.2s')
       ]),
-      transition(`${ItemState.normal} <=> ${ItemState.win}`, [
+      transition(`${FieldState.normal} <=> ${FieldState.win}`, [
         animate('0.2s')
       ]),
     ]),
@@ -29,19 +28,20 @@ import {error} from 'selenium-webdriver';
 })
 
 export class SimplecellComponent implements OnInit {
-  statusChange: ItemState;
-
-  cellCount = 3; //rozmiar planszy 4x4
-  memoryCount = 3; //ile kwadratów do zgadnięcia
-  basicArray: Item[][];
+  cellCount = 3;
+  memoryCount = 3;
+  basicArray: Field[][];
   countGoodPoints = 0;
   sumMemoryCount = 0;
-  looserMessage = false;
+  loserMessage = false;
   winnerMessage = false;
   numberOfLevel = 1;
   endLevel = 7;
   countTime = 0;
   myTimer: any;
+  word: string;
+  motivationMessage = false;
+  motivationArray = ['Brawo!', 'Idzie Ci super!', 'Jeszcze trochę!', 'Morowo!', 'Już blisko!', 'Trzymaj tak dalej!', 'Idziesz jak burza!'];
 
   constructor() {
   }
@@ -54,9 +54,9 @@ export class SimplecellComponent implements OnInit {
       this.basicArray = [];
 
       for (let i = 0; i < this.cellCount; i++) {
-          const rowArray: Item[] = [];
+          const rowArray: Field[] = [];
           for (let j = 0; j < this.cellCount; j++) {
-              const item = new Item(false, false);
+              const item = new Field(false, false);
               rowArray.push(item);
           }
           this.basicArray.push(rowArray.slice(0));
@@ -90,13 +90,14 @@ export class SimplecellComponent implements OnInit {
         }
     }
 
-    statusColor(i: number, j: number): ItemState {
+    statusColor(i: number, j: number): FieldState {
         return this.basicArray[i][j].statusColorItem();
     }
 
     startGame() {
-        this.looserMessage = false;
+        this.loserMessage = false;
         this.winnerMessage = false;
+        this.motivationMessage = false;
         this.countGoodPoints = 0;
         this.numberOfLevel = 1;
         this.cellCount = 3;
@@ -115,7 +116,6 @@ export class SimplecellComponent implements OnInit {
             this.chooseRandomColorCells();
             this.coverColorCells();
         }, 1000);
-
 
     }
 
@@ -142,38 +142,51 @@ export class SimplecellComponent implements OnInit {
   }
 
   nextLevel() {
-    this.numberOfLevel++;
-    switch (this.numberOfLevel) {
+      if (this.numberOfLevel === this.endLevel) {
+          return;
+      }
+
+      this.numberOfLevel++;
+      switch (this.numberOfLevel) {
         case 2:
             this.memoryCount++;
-            this.generateGameBoard();
             break;
         case 3:
             this.cellCount++;
-            this.generateGameBoard();
             break;
         case 4:
             this.memoryCount++;
-            this.generateGameBoard();
             break;
         case 5:
             this.cellCount++;
-            this.generateGameBoard();
             break;
         case 6:
             this.memoryCount++;
-            this.generateGameBoard();
             break;
         case 7:
             this.memoryCount++;
-            this.generateGameBoard();
             break;
     }
+
+      // switch (this.numberOfLevel) {
+      //     case 2:
+      //     case 4:
+      //     case 6:
+      //     case 7:
+      //         this.memoryCount++;
+      //         break;
+      //     default:
+      //         this.cellCount++;
+      //         break;
+      // }
+
+      this.generateGameBoard();
+      this.motivationSign();
   }
 
   whenSomebodyLoses(i: number, j: number){
       this.basicArray[i][j].setCellVisible(true);
-      this.looserMessage = true;
+      this.loserMessage = true;
       clearInterval(this.myTimer);
       console.log('you lose');
   }
@@ -184,6 +197,10 @@ export class SimplecellComponent implements OnInit {
       }, 1000);
   }
 
+  motivationSign() {
+      this.motivationMessage = true;
+      this.word = this.motivationArray[Math.floor(Math.random() * this.motivationArray.length)];
+  }
 
 
 

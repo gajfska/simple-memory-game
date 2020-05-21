@@ -4,27 +4,36 @@
       <button class="btn btn-blue" (click)="startGame()"> START </button>
       <hr>
 
-      <div class="alert-loser" *ngIf="looserMessage === true">
+      <div class="alert-loser" *ngIf="loserMessage === true">
         <h2>Przegrałeś!</h2>
-        <p>Naciśnij <strong>START </strong> i zagraj jeszcze raz!</p>
+        <p>Naciśnij <strong>START</strong> i zagraj jeszcze raz!</p>
       </div>
 
       <div class="alert-winner" *ngIf="winnerMessage === true">
         <h2>Wygrałeś!</h2>
-        <p>Naciśnij <strong>START </strong> i zagraj jeszcze raz!</p>
+        <p>Naciśnij <strong>START</strong> i zagraj jeszcze raz!</p>
       </div>
 
       <div class="number-info">
         <p>Poziom: {{numberOfLevel}}</p>
         <p>Znalezione pola: {{countGoodPoints}}</p>
-        <p>Czas: {{countTime}}</p>
+        <p>Czas: {{countTime}}s</p>
       </div>
-
-
-
 
     </div>
     <div class="col-lg-6">
+      <div class="motivation-text" *ngIf="motivationMessage === false">
+        <p>Zaczynajmy!</p>
+      </div>
+      <div class="motivation-text" *ngIf="loserMessage === true">
+        <p>Ups, przegrałeś :(</p>
+      </div>
+      <div class="motivation-text" *ngIf="winnerMessage === true">
+        <p>Super! Wygrałeś!</p>
+      </div>
+      <div class="motivation-text" *ngIf="winnerMessage === false && loserMessage === false && motivationMessage === true">
+        <p>{{word}}</p>
+      </div>
       <div class="grid-container">
 
         <div *ngFor="let row of basicArray; index as i;">

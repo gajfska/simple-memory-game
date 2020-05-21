@@ -1,10 +1,10 @@
-export enum ItemState {
+export enum FieldState {
   win = 'WIN',
   normal = 'NORMAL',
   wrong = 'WRONG'
 }
 
-export class Item {
+export class Field {
   isWanted = false;
   isVisible = false;
 
@@ -13,21 +13,20 @@ export class Item {
     this.isVisible = isVisible;
   }
 
-  statusColorItem(): ItemState {
+  statusColorItem(): FieldState {
 
     if (!this.isVisible) {
-      return ItemState.normal;
+      return FieldState.normal;
     }
     if (this.isWanted) {
-      return ItemState.win;
+      return FieldState.win;
     }
     else {
-      return ItemState.wrong;
+      return FieldState.wrong;
     }
   }
 
   setCellVisible(isVisible: boolean, delay: number = 0) {
-    // this.isVisible = isVisible;
       setTimeout(() => {
         this.isVisible = isVisible;
       }, delay);
@@ -36,19 +35,5 @@ export class Item {
   setCellWanted(isWanted: boolean) {
     this.isWanted = isWanted;
   }
-
-  // coverSpeciaCells() {
-  //   setTimeout(() => {
-  //       for (const value of this.isVisible) {
-  //           if (this.isVisible === true) {
-  //               this.isVisible = false;
-  //           }
-  //       }
-  //   }, 3000);
-  // }
-
-  // isWanted(): boolean {
-  //   return this.isWanted;
-  // }
 
 }
