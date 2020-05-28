@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'projeckt2';
+  title = 'Memory Game';
+
+    loadedFeature = 'easy';
+
+    onNavigate(feature: string) {
+        this.loadedFeature = feature;
+    }
 }

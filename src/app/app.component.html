@@ -4,6 +4,7 @@
     <p>Zapamiętaj gdzie znajdują się zielone pola. Naciśnij <strong>START</strong> i zacznij grę!
       <br>
     Gra posiada 7 poziomów- co poziom robi się trudniej!</p>
-    <app-simplecell></app-simplecell>
+    <app-simplecell (featureSelected)="onNavigate($event)" *ngIf="loadedFeature === 'easy'"></app-simplecell>
+    <app-levelhard (featureSelected)="onNavigate($event)" *ngIf="loadedFeature !== 'easy'"></app-levelhard>
   </div>
 </div>

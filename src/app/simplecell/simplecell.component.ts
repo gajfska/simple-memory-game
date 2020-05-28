@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Field, FieldState} from './field';
 
@@ -28,6 +28,14 @@ import {Field, FieldState} from './field';
 })
 
 export class SimplecellComponent implements OnInit {
+
+    @Output() featureSelected = new EventEmitter<string>();
+
+    onSelected(feature: string) {
+        this.featureSelected.emit(feature);
+    }
+
+
   cellCount = 3;
   memoryCount = 3;
   basicArray: Field[][];

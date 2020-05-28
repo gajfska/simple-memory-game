@@ -1,0 +1,18 @@
+.btn-blue {
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #ffffff;
+    padding: 15px 25px;
+    margin: 20px;
+    background-color: #247ba0;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.btn-blue:hover, .btn-blue:focus {
+    background-color: #1d3557;
+    color: #ffffff;
+}
