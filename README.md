@@ -21,4 +21,4 @@ Next run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The 
 
 ## Live
 
-http://memory.gajska.pl/
+https://memory.gajska.pl/
